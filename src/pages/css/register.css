@@ -1,0 +1,169 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.rugby-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #001f3f, #004a99);
+}
+
+.rugby-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.18);
+  border-top: 6px solid #ffcc00;
+}
+
+.rugby-header {
+  background: #001f3f;
+  text-align: center;
+  padding: 32px 24px 22px;
+}
+
+.rugby-header h1 {
+  color: #ffcc00;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.rugby-header p {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+.rugby-form {
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #001f3f;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #d8d8d8;
+  font-size: 0.95rem;
+  color: #1a2d4a;
+  background: #fafbff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ffcc00;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.25);
+}
+
+.rugby-btn {
+  margin-top: 10px;
+  padding: 14px 0;
+  background: linear-gradient(135deg, #ffcc00, #e6b800);
+  color: #001f3f;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.rugby-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 204, 0, 0.4);
+}
+
+.rugby-footer {
+  text-align: center;
+  padding: 18px 24px 24px;
+  background: #f8f9ff;
+}
+
+.rugby-footer p {
+  color: #36435f;
+  font-size: 0.95rem;
+}
+
+.rugby-footer a {
+  color: #004a99;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rugby-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .rugby-page {
+    padding: 18px;
+  }
+
+  .rugby-card {
+    border-radius: 20px;
+  }
+
+  .rugby-header {
+    padding: 26px 18px 18px;
+  }
+
+  .rugby-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .rugby-form {
+    padding: 22px 18px 20px;
+    gap: 16px;
+  }
+
+  .form-group input {
+    padding: 12px 14px;
+  }
+
+  .rugby-btn {
+    padding: 13px 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .rugby-header h1 {
+    font-size: 1.55rem;
+  }
+
+  .rugby-header p,
+  .rugby-footer p {
+    font-size: 0.92rem;
+  }
+}

@@ -1,0 +1,176 @@
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #001f3f, #004a99);
+  font-family: Arial, sans-serif;
+}
+
+.home-card {
+  width: 100%;
+  max-width: 980px;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  border-top: 6px solid #ffcc00;
+}
+
+.home-header {
+  padding: 32px 32px 24px;
+  background: #001f3f;
+  color: #ffffff;
+  text-align: center;
+}
+
+.home-header > div {
+  display: inline-block;
+  max-width: 720px;
+}
+
+.home-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #ffcc00;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.home-header h1 {
+  margin: 0 0 8px;
+  font-size: 2.4rem;
+  line-height: 1.05;
+}
+
+.home-subtitle {
+  margin: 0;
+  max-width: 620px;
+  color: #d8d8d8;
+  font-size: 1rem;
+}
+
+.home-intro {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  gap: 18px;
+  padding: 26px 32px 18px;
+}
+
+.home-info-card {
+  background: #f8f9ff;
+  border: 1px solid #d9d9d9;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.home-info-card h2 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  color: #001f3f;
+}
+
+.home-info-card p {
+  margin: 0;
+  color: #4a5b79;
+  font-size: 0.95rem;
+}
+
+.home-prizes {
+  padding: 14px 32px 32px;
+}
+
+.home-prizes h2 {
+  margin: 0 0 18px;
+  font-size: 1.35rem;
+  color: #001f3f;
+}
+
+.prize-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.prize-card {
+  background: #001f3f;
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 22px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.prize-card strong {
+  font-size: 1.05rem;
+}
+
+.prize-card p {
+  margin: 0;
+  color: #d8d8d8;
+  line-height: 1.4;
+}
+
+@media (max-width: 860px) {
+  .home-card {
+    max-width: 760px;
+  }
+
+  .home-intro,
+  .prize-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-card {
+    border-radius: 20px;
+  }
+
+  .home-header {
+    flex-direction: column;
+    padding: 28px 22px 20px;
+  }
+
+  .home-header h1 {
+    font-size: 1.9rem;
+  }
+
+  .home-intro,
+  .prize-list {
+    grid-template-columns: 1fr;
+  }
+
+  .home-prizes {
+    padding: 18px 22px 24px;
+  }
+}
+
+@media (max-width: 420px) {
+  .home-page {
+    padding: 16px;
+  }
+
+  .home-header {
+    padding: 24px 18px 18px;
+  }
+
+  .home-badge {
+    font-size: 0.82rem;
+  }
+
+  .home-header h1 {
+    font-size: 1.7rem;
+  }
+
+  .home-subtitle,
+  .home-info-card p,
+  .prize-card p {
+    font-size: 0.92rem;
+  }
+}

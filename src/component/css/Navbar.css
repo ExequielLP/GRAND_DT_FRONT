@@ -1,0 +1,98 @@
+.app-navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  background: linear-gradient(135deg, #03274d, #004a99);
+  color: #fff;
+  gap: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.navbar-logo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.navbar-tag {
+  font-size: 0.95rem;
+  color: #ffd54f;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 12px;
+}
+
+.navbar-links button,
+.navbar-button {
+  border: none;
+  background: transparent;
+  color: #f7f2ef;
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.navbar-links button:hover,
+.navbar-button:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.navbar-session {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-user {
+  font-size: 0.95rem;
+  color: #f6f6f6;
+}
+
+.navbar-button {
+  background: linear-gradient(135deg, #ffd54f, #ffcc00);
+  color: #03274d;
+  font-weight: 700;
+  box-shadow: 0 10px 18px rgba(255, 204, 0, 0.18);
+}
+
+@media (max-width: 860px) {
+  .app-navbar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .navbar-right {
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .navbar-links {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
