@@ -1,5 +1,5 @@
 import useAuthStore from '../hooks/useAuthStore';   
-export const fetchLogin = async (email, password) => {
+export  const fetchLogin = async (email, password) => {
     const logout = useAuthStore.getState().logout;
   try {
     const response = await fetch("http://localhost:8080/api/v1/auth/login", {

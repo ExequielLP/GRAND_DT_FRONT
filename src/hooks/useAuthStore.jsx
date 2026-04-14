@@ -22,13 +22,15 @@ const useAuthStore = create(
 
           set({
             id: data.id,
-            userName: data.user,
+            userName: data.userName,
             rol: data.rol,
             jwt: data.jwt,
             email: data.email,
             isAuthenticated: true,
             loading: false,
           });
+        
+      
           return true;
         } catch (err) {
           set({

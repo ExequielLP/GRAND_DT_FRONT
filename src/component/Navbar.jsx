@@ -28,15 +28,17 @@ const Navbar = () => {
           <button type="button" onClick={() => navigate('/home', { replace: true })}>
             Inicio
           </button>
-          <button type="button" onClick={() => navigate('/dashboard', { replace: true })}>
+        {isAuthenticated ? (<button type="button" onClick={() => navigate('/dashboard', { replace: true })}>
             Dashboard
-          </button>
+          </button>) : null }
         </div>
         <div className="navbar-session">
           {isAuthenticated ? (
-            <span className="navbar-user">Hola, {userName || 'Jugador'}</span>
+            <span className="navbar-button">Hola {userName || 'Jugador'}</span>
           ) : (
-            <span className="navbar-user">Bienvenido</span>
+                      <button  className="navbar-button" type="button" onClick={() => navigate('/register', { replace: true })}>
+            Registrarse
+          </button>
           )}
           <button className="navbar-button" onClick={handleAuthClick}>
             {isAuthenticated ? 'Cerrar sesión' : 'Iniciar sesión'}
