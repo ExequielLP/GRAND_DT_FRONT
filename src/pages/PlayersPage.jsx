@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import "./PlayersPage.css";
-import { fetchForPosition } from "../servis/fetchForPosition";
+import usePlayersStore from "../hooks/usePlayerStroe";
+
 const formation = [
   { number: 1, top: "8%", left: "24%" },
   { number: 2, top: "8%", left: "50%" },
@@ -25,28 +26,35 @@ const formation = [
   { number: 14, top: "82%", left: "84%" },
 ];
 
-const mockPlayersByNumber = {
-  1: [],
-  2: ["Hooker 1", "Hooker 2"],
-  3: ["Pilar derecho 1", "Pilar derecho 2"],
-  4: ["Segunda línea 1", "Segunda línea 2"],
-  5: ["Segunda línea 3", "Segunda línea 4"],
-  6: ["Ala izquierdo 1", "Ala izquierdo 2"],
-  7: ["Ala derecho 1", "Ala derecho 2"],
-  8: ["Octavo 1", "Octavo 2"],
-  9: ["Medio scrum 1", "Medio scrum 2"],
-  10: ["Apertura 1", "Apertura 2"],
-  11: ["Wing izquierdo 1", "Wing izquierdo 2"],
-  12: ["Centro interior 1", "Centro interior 2"],
-  13: ["Centro exterior 1", "Centro exterior 2"],
-  14: ["Wing derecho 1", "Wing derecho 2"],
-  15: ["Fullback 1", "Fullback 2"],
-};
+
 
 const PlayersPage = () => {
   const [selectedNumber, setSelectedNumber] = useState(0);
+ const listAllPlayers = usePlayersStore((state) => state.fetchPlayers);
 
-  const selectedPlayers = mockPlayersByNumber[selectedNumber] || [];
+const playersList = usePlayersStore((state) => state.players);
+ 
+ const mockPlayersByNumber = {
+  1: playersList.map(p => p.position === "PILAR" ? p.firstName : null).filter(Boolean)[0] || "Pilar 1",
+  2: playersList.map(p => p.position === "HOOKER" ? p.firstName : null).filter(Boolean)[0] || "Hooker",
+  3: playersList.map(p => p.position === "PILAR" ? p.firstName : null).filter(Boolean)[1] || "Pilar 2",
+  4: playersList.map(p => p.position === "SEGUNDA_LINEA" ? p.firstName : null).filter(Boolean)[0] || "2da línea 1",
+  5: playersList.map(p => p.position === "SEGUNDA_LINEA" ? p.firstName : null).filter(Boolean)[1] || "2da línea 2",
+  6: playersList.map(p => p.position === "ALA" ? p.firstName : null).filter(Boolean)[0] || "Ala 1",
+  7: playersList.map(p => p.position === "ALA" ? p.firstName : null).filter(Boolean)[1] || "Ala 2",
+  8: playersList.map(p => p.position === "OCTAVO" ? p.firstName : null).filter(Boolean)[0] || "Octavo",
+  9: playersList.map(p => p.position === "MEDIOSCRUM" ? p.firstName : null).filter(Boolean)[0] || "Medio scrum",
+  10: playersList.map(p => p.position === "APERTURA" ? p.firstName : null).filter(Boolean)[0] || "Apertura",
+  11: playersList.map(p => p.position === "WING" ? p.firstName : null).filter(Boolean)[0] || "Wing 1",
+  12: playersList.map(p => p.position === "CENTRO" ? p.firstName : null).filter(Boolean)[0] || "Centro 1",
+  13: playersList.map(p => p.position === "CENTRO" ? p.firstName : null).filter(Boolean)[1] || "Centro 2",
+  14: playersList.map(p => p.position === "WING" ? p.firstName : null).filter(Boolean)[1] || "Wing 2",
+  15: playersList.map(p => p.position === "FULLBACK" ? p.firstName : null).filter(Boolean)[0] || "Fullback",
+};
+ const selectedPlayers = mockPlayersByNumber[selectedNumber] || [];
+  useEffect(() => {
+   listAllPlayers()
+  }, []);
 
   return (
     <section className="players-page">
@@ -85,8 +93,8 @@ const PlayersPage = () => {
                   style={{ top: player.top, left: player.left }}
                   onClick={() =>{ 
                     setSelectedNumber(player.number)
-                  const lista=fetchForPosition(player.number)
-                  console.log(lista)
+                  
+                 
                 }
                 }
                   >

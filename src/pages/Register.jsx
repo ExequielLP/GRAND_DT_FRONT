@@ -1,9 +1,37 @@
 import React from 'react'
 import "./css/register.css"
+import useAuthStore from '../hooks/useAuthStore';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+const initialRegisterForm = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+};
 
 
 const Register = () => {
+    const navigate = useNavigate();
+    const register = useAuthStore((state) => state.register);
+    const [formRegister, setFormRegister] = useState(initialRegisterForm);
+
+    const handleChangeRegister = (e) => {
+    setFormRegister({
+        ...formRegister,
+        [e.target.name]: e.target.value,
+    });
+  
+};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await register(formRegister);
+    if (success) {
+      navigate("/login", { replace: true });
+    }
+  };
+
     return (
         <>
             <div className="rugby-page">
@@ -15,26 +43,26 @@ const Register = () => {
 
                     <form className="rugby-form">
                         <div className="form-group">
-                            <label htmlFor="nombre">Nombre</label>
-                            <input type="text" id="nombre" placeholder="Ingresá tu nombre" />
+                            <label htmlFor="firstName">Nombre</label>
+                            <input type="text" id="firstName" placeholder="Ingresá tu nombre" onChange={handleChangeRegister} value={formRegister.firstName} name="firstName" />
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="apellido">Apellido</label>
-                            <input type="text" id="apellido" placeholder="Ingresá tu apellido" />
+                            <label htmlFor="lastName">Apellido</label>
+                            <input type="text" id="lastName" placeholder="Ingresá tu apellido" onChange={handleChangeRegister} value={formRegister.lastName} name="lastName" />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
-                            <input type="email" id="email" placeholder="Ingresá tu email" />
+                            <input type="email" id="email" placeholder="Ingresá tu email" onChange={handleChangeRegister} value={formRegister.email} name="email" />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="password">Contraseña</label>
-                            <input type="password" id="password" placeholder="Ingresá tu contraseña" />
+                            <input type="password" id="password" placeholder="Ingresá tu contraseña" onChange={handleChangeRegister} value={formRegister.password} name="password" />
                         </div>
 
-                        <button type="submit" className="rugby-btn">
+                        <button type="submit" className="rugby-btn" onClick={handleSubmit}>
                             Registrarse
                         </button>
                     </form>

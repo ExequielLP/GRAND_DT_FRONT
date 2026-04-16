@@ -1,11 +1,6 @@
-import { fetchWithAuth } from "./fetchWithAuth";
 
-export  async function fetchForPosition(number) {
-    const position = positionNumberToName(number);
-    console.log(position)
-    const data = await fetchWithAuth(`http://localhost:8080/players/jugadores/${position}`)
-    return data;
-}
+
+
 
 function positionNumberToName(number) {
     const positionNumber = ""

@@ -1,8 +1,11 @@
 import useAuthStore from '../hooks/useAuthStore';   
+const{
+  VITE_ENDPOINT_urlPostLogin: urlPostLogin
+} = import.meta.env;
 export  const fetchLogin = async (email, password) => {
     const logout = useAuthStore.getState().logout;
   try {
-    const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+    const response = await fetch(urlPostLogin, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

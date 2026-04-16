@@ -37,10 +37,8 @@ export const fetchWithAuth = async (url, options = {}) => {
         headers: config.headers,
         body: config.body,
     });
-
     const response = await fetch(finalUrl, config);
-
-    console.log("STATUS:", response.status);
+console.log("RESPONSE:",    response)
 
     // 🔐 errores comunes
     if (response.status === 401) {

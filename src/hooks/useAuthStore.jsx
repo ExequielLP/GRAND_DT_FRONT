@@ -1,6 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { fetchLogin } from '../servis/fetchLogin';
+const{
+  VITE_ENDPOINT_urlPostRegister: urlPostRegister
+} = import.meta.env;
 
 const useAuthStore = create(
   persist(
@@ -29,8 +32,8 @@ const useAuthStore = create(
             isAuthenticated: true,
             loading: false,
           });
-        
-      
+
+
           return true;
         } catch (err) {
           set({
@@ -42,7 +45,18 @@ const useAuthStore = create(
           return false;
         }
       },
-
+      register: async (formRegister ) => {
+        console.log("Form Register:", formRegister);
+        const response = await fetch(urlPostRegister, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formRegister)
+        });
+        return response.ok;
+      }
+      ,
       logout: () => {
         set({
           id: null,
