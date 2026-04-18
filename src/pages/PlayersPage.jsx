@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import "./PlayersPage.css";
 import usePlayersStore from "../hooks/usePlayerStroe";
+import Titulares from "../component/Titulares";
 
 const formation = [
   { number: 1, top: "8%", left: "24%" },
@@ -26,35 +27,52 @@ const formation = [
   { number: 14, top: "82%", left: "84%" },
 ];
 
-
+const positionByNumber = {
+  1: "PILAR",
+  2: "HOOKER",
+  3: "PILAR",
+  4: "SEGUNDA_LINEA",
+  5: "SEGUNDA_LINEA",
+  6: "ALA",
+  7: "ALA",
+  8: "OCTAVO",
+  9: "MEDIOSCRUM",
+  10: "APERTURA",
+  11: "WING",
+  12: "CENTRO",
+  13: "CENTRO",
+  14: "WING",
+  15: "FULLBACK",
+};
 
 const PlayersPage = () => {
   const [selectedNumber, setSelectedNumber] = useState(0);
- const listAllPlayers = usePlayersStore((state) => state.fetchPlayers);
+  const [selectedTeam, setSelectedTeam] = useState({});
+  const fetchPlayers = usePlayersStore((state) => state.fetchPlayers);
+  const playersList = usePlayersStore((state) => state.players);
+  const loading = usePlayersStore((state) => state.loading);
+  const error = usePlayersStore((state) => state.error);
 
-const playersList = usePlayersStore((state) => state.players);
- 
- const mockPlayersByNumber = {
-  1: playersList.map(p => p.position === "PILAR" ? p.firstName : null).filter(Boolean)[0] || "Pilar 1",
-  2: playersList.map(p => p.position === "HOOKER" ? p.firstName : null).filter(Boolean)[0] || "Hooker",
-  3: playersList.map(p => p.position === "PILAR" ? p.firstName : null).filter(Boolean)[1] || "Pilar 2",
-  4: playersList.map(p => p.position === "SEGUNDA_LINEA" ? p.firstName : null).filter(Boolean)[0] || "2da línea 1",
-  5: playersList.map(p => p.position === "SEGUNDA_LINEA" ? p.firstName : null).filter(Boolean)[1] || "2da línea 2",
-  6: playersList.map(p => p.position === "ALA" ? p.firstName : null).filter(Boolean)[0] || "Ala 1",
-  7: playersList.map(p => p.position === "ALA" ? p.firstName : null).filter(Boolean)[1] || "Ala 2",
-  8: playersList.map(p => p.position === "OCTAVO" ? p.firstName : null).filter(Boolean)[0] || "Octavo",
-  9: playersList.map(p => p.position === "MEDIOSCRUM" ? p.firstName : null).filter(Boolean)[0] || "Medio scrum",
-  10: playersList.map(p => p.position === "APERTURA" ? p.firstName : null).filter(Boolean)[0] || "Apertura",
-  11: playersList.map(p => p.position === "WING" ? p.firstName : null).filter(Boolean)[0] || "Wing 1",
-  12: playersList.map(p => p.position === "CENTRO" ? p.firstName : null).filter(Boolean)[0] || "Centro 1",
-  13: playersList.map(p => p.position === "CENTRO" ? p.firstName : null).filter(Boolean)[1] || "Centro 2",
-  14: playersList.map(p => p.position === "WING" ? p.firstName : null).filter(Boolean)[1] || "Wing 2",
-  15: playersList.map(p => p.position === "FULLBACK" ? p.firstName : null).filter(Boolean)[0] || "Fullback",
-};
- const selectedPlayers = mockPlayersByNumber[selectedNumber] || [];
   useEffect(() => {
-   listAllPlayers()
-  }, []);
+    fetchPlayers();
+  }, [fetchPlayers]);
+
+  const selectedPlayers =
+    selectedNumber === 0
+      ? []
+      : playersList.filter(
+        (player) => player.position === positionByNumber[selectedNumber]
+      );
+
+  const handleSelectPlayerForTeam = (player) => {
+    console.log("Jugador seleccionado para el equipo:", player);
+    setSelectedTeam((prev) => ({
+      ...prev,
+      [selectedNumber]: player,
+    }));
+console.log("Jugador seleccionado para el equipo:", selectedTeam);
+
+  }
 
   return (
     <section className="players-page">
@@ -87,17 +105,11 @@ const playersList = usePlayersStore((state) => state.players);
                 <button
                   key={player.number}
                   type="button"
-                  className={`player-marker ${
-                    selectedNumber === player.number ? "active" : ""
-                  }`}
+                  className={`player-marker ${selectedNumber === player.number ? "active" : ""
+                    }`}
                   style={{ top: player.top, left: player.left }}
-                  onClick={() =>{ 
-                    setSelectedNumber(player.number)
-                  
-                 
-                }
-                }
-                  >
+                  onClick={() => setSelectedNumber(player.number)}
+                >
                   <div className="jersey">
                     <div className="jersey-collar" />
                     <span className="jersey-number">{player.number}</span>
@@ -113,22 +125,47 @@ const playersList = usePlayersStore((state) => state.players);
             <span className="sidebar-label">Posición seleccionada</span>
             <h3>PUESTO #{selectedNumber}</h3>
 
-            <div className="sidebar-list">
-              {selectedPlayers.map((name, index) => (
-                <div key={index} className="player-list-item">
-                  <span className="player-index">{index + 1}</span>
-                  <span className="player-name">{name}</span>
-                  <button className="player-action">
-                    Seleccionar
-                  </button>
-                </div>
-              ))}
-            </div>
+            {loading && <p>Cargando jugadores...</p>}
+            {error && <p>{error}</p>}
+
+            {!loading && !error && (
+              <div className="sidebar-list">
+                {selectedPlayers.length > 0 ? (
+                  selectedPlayers.map((player, index) => (
+                    <div key={player.id} className="player-list-item">
+                      <span className="player-index">{index + 1}</span>
+                      <span className="player-name">
+                        {player.firstName} {player.lastName}
+                      </span>
+                      <button
+                        className="player-action"
+                        onClick={() => {
+
+                          handleSelectPlayerForTeam(player);
+                        }}
+                      >
+                        Seleccionar
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <div className="player-list-item">
+                    <span className="player-name">
+                      {selectedNumber === 0
+                        ? "Seleccioná una posición"
+                        : "No hay jugadores para este puesto"}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </aside>
       </div>
+      <Titulares selectedTeam={selectedTeam}
+       // onRemovePlayer={handleRemoveSelectedPlayer} 
+        />
     </section>
   );
 };
-
 export default PlayersPage;

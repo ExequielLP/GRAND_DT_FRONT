@@ -1,0 +1,162 @@
+.site-footer {
+  background:
+    radial-gradient(circle at top left, rgba(255, 204, 0, 0.1), transparent 24%),
+    linear-gradient(135deg, #00162f 0%, #00284f 50%, #001a35 100%);
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 32px;
+}
+
+.site-footer-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 20px 16px;
+  box-sizing: border-box;
+}
+
+/* 🔥 GRID CORREGIDO A 3 COLUMNAS */
+
+.site-footer-top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+  max-width: 360px;
+}
+
+.footer-brand h3 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+.footer-kicker {
+  margin: 0 0 8px;
+  color: #ffcc00;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-text {
+  margin: 0;
+  color: #d6e2f0;
+  line-height: 1.6;
+  font-size: 0.93rem;
+}
+
+.footer-links-group h4 {
+  margin: 0 0 10px;
+  font-size: 0.98rem;
+  color: #ffffff;
+}
+
+.footer-links-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links-group li {
+  margin-bottom: 7px;
+}
+
+.footer-links-group a {
+  color: #d6e2f0;
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: color 0.2s ease;
+}
+
+.footer-links-group a:hover {
+  color: #ffcc00;
+}
+
+/* BOTTOM */
+
+.site-footer-bottom {
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.site-footer-bottom p {
+  margin: 0;
+  color: #b9cadf;
+  font-size: 0.86rem;
+}
+
+/* TABLET */
+
+@media (max-width: 980px) {
+  .site-footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 640px) {
+  .site-footer-container {
+    padding: 20px 16px 14px;
+  }
+
+  .site-footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding-bottom: 14px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-brand h3 {
+    font-size: 1.25rem;
+  }
+
+  .footer-text {
+    font-size: 0.9rem;
+  }
+
+  .footer-links-group h4 {
+    font-size: 0.92rem;
+  }
+
+  .footer-links-group a {
+    font-size: 0.88rem;
+  }
+
+  .site-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .site-footer-bottom p {
+    font-size: 0.82rem;
+  }
+}
+
+/* MUY CHICO */
+
+@media (max-width: 420px) {
+  .site-footer-top {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,13 +1,23 @@
 .app-navbar {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 28px;
+  flex-direction: column;
+  padding: 16px 28px;
   background: linear-gradient(135deg, #03274d, #004a99);
   color: #fff;
-  gap: 16px;
+  gap: 14px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 50;
+  box-sizing: border-box;
+}
+
+.navbar-top-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .navbar-left {
@@ -15,12 +25,15 @@
   align-items: baseline;
   gap: 12px;
   cursor: pointer;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .navbar-logo {
   font-size: 1.35rem;
   font-weight: 800;
   letter-spacing: 0.08em;
+  line-height: 1;
 }
 
 .navbar-tag {
@@ -28,31 +41,74 @@
   color: #ffd54f;
   text-transform: uppercase;
   letter-spacing: 0.14em;
+  line-height: 1.2;
+}
+
+.navbar-menu-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.navbar-menu-toggle span {
+  width: 18px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.navbar-menu-toggle.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-menu-toggle.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .navbar-right {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 18px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  width: 100%;
 }
 
 .navbar-links {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .navbar-links button,
-.navbar-button {
+.navbar-button,
+.navbar-user-pill {
   border: none;
-  background: transparent;
-  color: #f7f2ef;
-  cursor: pointer;
   font-size: 0.95rem;
   padding: 10px 14px;
   border-radius: 999px;
   transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.navbar-links button {
+  background: transparent;
+  color: #f7f2ef;
+  cursor: pointer;
 }
 
 .navbar-links button:hover,
@@ -64,11 +120,16 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
-.navbar-user {
-  font-size: 0.95rem;
+.navbar-user-pill {
+  background: rgba(255, 255, 255, 0.1);
   color: #f6f6f6;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
 }
 
 .navbar-button {
@@ -76,23 +137,103 @@
   color: #03274d;
   font-weight: 700;
   box-shadow: 0 10px 18px rgba(255, 204, 0, 0.18);
+  cursor: pointer;
+}
+
+.navbar-button.navbar-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 @media (max-width: 860px) {
   .app-navbar {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: left;
+    padding: 14px 18px;
+    gap: 10px;
+  }
+
+  .navbar-menu-toggle {
+    display: flex;
   }
 
   .navbar-right {
-    justify-content: space-between;
-    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
     gap: 12px;
+    width: 100%;
+    padding-top: 4px;
   }
 
-  .navbar-links {
+  .navbar-right.open {
+    display: flex;
+  }
+
+  .navbar-links,
+  .navbar-session {
     width: 100%;
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .navbar-links button,
+  .navbar-button,
+  .navbar-user-pill {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .navbar-left {
+    gap: 8px;
+  }
+
+  .navbar-logo {
+    font-size: 1.18rem;
+  }
+
+  .navbar-tag {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (min-width: 861px) {
+  .navbar-right {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-navbar {
+    padding: 12px 14px;
+  }
+
+  .navbar-top-row {
+    align-items: flex-start;
+  }
+
+  .navbar-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .navbar-logo {
+    font-size: 1.08rem;
+  }
+
+  .navbar-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  .navbar-links button,
+  .navbar-button,
+  .navbar-user-pill {
+    font-size: 0.92rem;
+    padding: 10px 12px;
   }
 }

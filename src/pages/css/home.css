@@ -1,176 +1,478 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
 .home-page {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-  background: linear-gradient(135deg, #001f3f, #004a99);
+  padding: 32px 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 204, 0, 0.14), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.08), transparent 22%),
+    linear-gradient(135deg, #00162f 0%, #002e63 55%, #004b8f 100%);
   font-family: Arial, sans-serif;
 }
 
-.home-card {
-  width: 100%;
-  max-width: 980px;
-  background: #ffffff;
-  border-radius: 24px;
+.home-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* HERO */
+
+.home-hero {
+  display: grid;
+  grid-template-columns: 1.35fr 0.95fr;
+  gap: 18px;
+}
+
+.home-hero-left,
+.home-hero-right {
+  border-radius: 26px;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
-  border-top: 6px solid #ffcc00;
 }
 
-.home-header {
-  padding: 32px 32px 24px;
-  background: #001f3f;
+.home-hero-left {
+  padding: 38px;
+  background:
+    linear-gradient(135deg, rgba(0, 24, 55, 0.94), rgba(0, 57, 112, 0.9)),
+    url('https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
   color: #ffffff;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 330px;
 }
 
-.home-header > div {
-  display: inline-block;
-  max-width: 720px;
+.home-hero-right {
+  padding: 20px;
+  background: linear-gradient(180deg, #001f3f, #003f7d);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: #ffffff;
 }
+
+/* HERO TEXT */
 
 .home-badge {
-  display: inline-block;
-  margin-bottom: 12px;
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
   color: #ffcc00;
-  font-size: 0.9rem;
   font-weight: 700;
+  font-size: 0.8rem;
   letter-spacing: 0.08em;
+  background: rgba(255, 204, 0, 0.12);
+  border: 1px solid rgba(255, 204, 0, 0.2);
 }
 
-.home-header h1 {
-  margin: 0 0 8px;
-  font-size: 2.4rem;
-  line-height: 1.05;
+.home-title {
+  margin: 0 0 12px;
+  max-width: 520px;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .home-subtitle {
   margin: 0;
-  max-width: 620px;
-  color: #d8d8d8;
+  max-width: 600px;
+  color: #dbe7f6;
+  line-height: 1.6;
   font-size: 1rem;
 }
 
-.home-intro {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 1fr));
-  gap: 18px;
-  padding: 26px 32px 18px;
-}
-
-.home-info-card {
-  background: #f8f9ff;
-  border: 1px solid #d9d9d9;
-  border-radius: 18px;
-  padding: 20px;
-}
-
-.home-info-card h2 {
-  margin: 0 0 10px;
-  font-size: 1.05rem;
-  color: #001f3f;
-}
-
-.home-info-card p {
-  margin: 0;
-  color: #4a5b79;
-  font-size: 0.95rem;
-}
-
-.home-prizes {
-  padding: 14px 32px 32px;
-}
-
-.home-prizes h2 {
-  margin: 0 0 18px;
-  font-size: 1.35rem;
-  color: #001f3f;
-}
-
-.prize-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
-  gap: 18px;
-}
-
-.prize-card {
-  background: #001f3f;
-  color: #ffffff;
-  border-radius: 18px;
-  padding: 22px;
-  min-height: 140px;
+.home-hero-actions {
+  margin-top: 22px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.home-primary-btn {
+  background: #ffcc00;
+  color: #001f3f;
+  border-radius: 12px;
+  padding: 12px 18px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.home-secondary-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 12px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* HERO RIGHT */
+
+.hero-top-card {
+  background: #00254a;
+  padding: 16px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.hero-top-label {
+  color: #d8e5f3;
+  font-size: 0.92rem;
+}
+
+.hero-top-rank {
+  color: #ffcc00;
+  font-size: 1.45rem;
+}
+
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
+.hero-stat-card {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.hero-stat-card span {
+  display: block;
+  margin-bottom: 8px;
+  color: #cdd9eb;
+  font-size: 0.84rem;
+}
+
+.hero-stat-card strong {
+  color: #ffffff;
+  font-size: 1.08rem;
+}
+
+.hero-match-card {
+  background: rgba(255, 204, 0, 0.15);
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.hero-match-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #ffe37d;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-match-card h3 {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 1.08rem;
+}
+
+.hero-match-card p {
+  margin: 0;
+  color: #e4ebf5;
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
+/* SUMMARY */
+
+.home-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.home-card-block {
+  background: linear-gradient(135deg, #001f3f, #003f7d);
+  padding: 20px;
+  border-radius: 22px;
+  color: white;
+}
+
+.home-card-block.featured {
+  border: 1px solid rgba(255, 204, 0, 0.2);
+}
+
+.card-kicker {
+  display: inline-block;
+  color: #ffcc00;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.home-card-block h2 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 1.08rem;
+  line-height: 1.28;
+}
+
+.home-card-block p {
+  margin: 0;
+  color: #d7e3f3;
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+/* CONTENT GRID */
+
+.home-content-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 18px;
+}
+
+/* PREMIOS */
+
+.home-section-panel {
+  background: linear-gradient(135deg, #001f3f, #003f7d) !important;
+  color: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+}
+
+.home-section-panel .section-kicker {
+  color: #ffcc00;
+}
+
+.home-section-panel h2 {
+  color: #ffffff;
+}
+
+.home-section-panel .section-description {
+  color: #d7e3f3;
+}
+
+/* PRIZES */
+
+.prize-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.prize-card {
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.prize-icon {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
 .prize-card strong {
-  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
 }
 
 .prize-card p {
   margin: 0;
-  color: #d8d8d8;
-  line-height: 1.4;
+  color: #d8e3f1;
+  line-height: 1.5;
+  font-size: 0.9rem;
 }
 
-@media (max-width: 860px) {
-  .home-card {
-    max-width: 760px;
+/* SIDE */
+
+.side-panel {
+  background: linear-gradient(135deg, #001f3f, #003f7d);
+  color: white;
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.side-panel.accent {
+  background: linear-gradient(135deg, #00264d, #004b8f);
+  border: 1px solid rgba(255, 204, 0, 0.2);
+}
+
+.home-check-list {
+  padding-left: 20px;
+  margin: 0;
+  color: #d7e3f3;
+  line-height: 1.75;
+}
+
+.home-check-list li::marker {
+  color: #ffcc00;
+}
+
+.home-panel-text {
+  margin: 0;
+  color: #e4eefc;
+  line-height: 1.65;
+  font-size: 0.93rem;
+}
+
+/* HEADERS */
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.section-header.side {
+  margin-bottom: 12px;
+}
+
+.section-kicker {
+  color: #ffcc00;
+  font-size: 0.8rem;
+  margin: 0 0 6px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-header h2,
+.section-header h3 {
+  margin: 0;
+}
+
+.section-description {
+  margin: 0;
+  max-width: 380px;
+  text-align: right;
+  line-height: 1.5;
+  font-size: 0.92rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .home-hero {
+    grid-template-columns: 1fr;
   }
 
-  .home-intro,
-  .prize-list {
-    grid-template-columns: 1fr 1fr;
+  .home-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-content-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 620px) {
-  .home-card {
+@media (max-width: 700px) {
+  .home-page {
+    padding: 18px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .home-hero-left,
+  .home-hero-right,
+  .home-card-block,
+  .home-section-panel,
+  .side-panel {
     border-radius: 20px;
   }
 
-  .home-header {
-    flex-direction: column;
-    padding: 28px 22px 20px;
+  .home-hero-left,
+  .home-hero-right,
+  .home-section-panel,
+  .side-panel {
+    padding: 18px;
   }
 
-  .home-header h1 {
-    font-size: 1.9rem;
+  .home-title {
+    max-width: 100%;
+    font-size: 2rem;
+    line-height: 1.16;
   }
 
-  .home-intro,
+  .home-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .home-summary {
+    grid-template-columns: 1fr;
+  }
+
   .prize-list {
     grid-template-columns: 1fr;
   }
 
-  .home-prizes {
-    padding: 18px 22px 24px;
+  .hero-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-hero-actions {
+    flex-direction: column;
+  }
+
+  .home-primary-btn,
+  .home-secondary-btn {
+    width: 100%;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-description {
+    text-align: left;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 420px) {
-  .home-page {
-    padding: 16px;
+  .container {
+    padding: 0 14px;
   }
 
-  .home-header {
-    padding: 24px 18px 18px;
+  .home-title {
+    font-size: 1.8rem;
+    line-height: 1.18;
   }
 
   .home-badge {
-    font-size: 0.82rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
   }
 
-  .home-header h1 {
-    font-size: 1.7rem;
-  }
-
-  .home-subtitle,
-  .home-info-card p,
-  .prize-card p {
-    font-size: 0.92rem;
+  .home-card-block,
+  .prize-card {
+    padding: 16px;
   }
 }
