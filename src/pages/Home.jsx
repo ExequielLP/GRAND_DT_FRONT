@@ -19,9 +19,13 @@ const Home = () => {
               </p>
 
               <div className="home-hero-actions">
-                <button className="home-primary-btn" onClick={() => window.location.href = '/login'}>Ver torneo</button >
+                <button className="home-primary-btn" onClick={() => window.location.href = '/login'}>Ver torneo</button>
                 <button className="home-secondary-btn">Conocer premios</button>
               </div>
+
+              <button className="home-cta-btn" onClick={() => window.location.href = '/dashboard'}>
+                Comenzar a participar del Gran DT →
+              </button>
             </div>
 
             <div className="home-hero-right">

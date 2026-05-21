@@ -235,6 +235,63 @@ body {
   font-weight: 600;
 }
 
+/* TEAM LIST */
+
+.dashboard-team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dashboard-team-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.15s ease;
+}
+
+.dashboard-team-row:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.dashboard-team-number {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #facc15, #eab308);
+  color: #03274d;
+  font-weight: 900;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+
+.dashboard-team-name {
+  flex: 1;
+  color: #f1f5f9;
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dashboard-team-position {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #93c5fd;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 900px) {

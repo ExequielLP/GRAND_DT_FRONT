@@ -1,11 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import useAuthStore from '../hooks/useAuthStore'
 import './css/dashboard.css'
 
+const positionLabel = {
+  PRIMERA_LINEA: 'Primera Línea',
+  SEGUNDA_LINEA: 'Segunda Línea',
+  TERCERA_LINEA: 'Tercera Línea',
+  MEDIOSCRUM: 'Medio Scrum',
+  APERTURA: 'Apertura',
+  WING: 'Wing',
+  CENTRO: 'Centro',
+  FULLBACK: 'Fullback',
+}
+
+const positionByNumber = {
+  1: 'PRIMERA_LINEA', 2: 'PRIMERA_LINEA', 3: 'PRIMERA_LINEA',
+  4: 'SEGUNDA_LINEA', 5: 'SEGUNDA_LINEA',
+  6: 'TERCERA_LINEA', 7: 'TERCERA_LINEA', 8: 'TERCERA_LINEA',
+  9: 'MEDIOSCRUM', 10: 'APERTURA',
+  11: 'WING', 12: 'CENTRO', 13: 'CENTRO', 14: 'WING', 15: 'FULLBACK',
+}
+
 const Dashboard = () => {
   const userName = useAuthStore((state) => state.userName) || 'Jugador'
-  const [selectedPlayers] = useState([])
+  const submittedTeam = useAuthStore((state) => state.submittedTeam)
 
   return (
     <div className="dashboard-page">
@@ -90,29 +109,56 @@ const Dashboard = () => {
         </section>
 
         <section className="dashboard-card">
-          <header className="dashboard-card-header">
-            <h2>Armá tu equipo</h2>
-            <p>{selectedPlayers.length} / 15 jugadores</p>
-          </header>
-
-          <div className="dashboard-card-body">
-            <div className="dashboard-mini-grid">
-              <div className="dashboard-mini-card">
-                <h3>Primera línea</h3>
-                <p>Pilares y hooker</p>
+          {submittedTeam ? (
+            <>
+              <header className="dashboard-card-header">
+                <h2>Tu equipo</h2>
+                <p>15 / 15 jugadores seleccionados</p>
+              </header>
+              <div className="dashboard-card-body">
+                <div className="dashboard-team-list">
+                  {Array.from({ length: 15 }, (_, i) => i + 1).map((num) => {
+                    const player = submittedTeam[num]
+                    if (!player) return null
+                    return (
+                      <div key={num} className="dashboard-team-row">
+                        <span className="dashboard-team-number">{num}</span>
+                        <span className="dashboard-team-name">
+                          {player.firstName} {player.lastName}
+                        </span>
+                        <span className="dashboard-team-position">
+                          {positionLabel[positionByNumber[num]]}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
-
-              <div className="dashboard-mini-card">
-                <h3>Segunda</h3>
-                <p>Fuerza y obtención</p>
+            </>
+          ) : (
+            <>
+              <header className="dashboard-card-header">
+                <h2>Armá tu equipo</h2>
+                <p>0 / 15 jugadores</p>
+              </header>
+              <div className="dashboard-card-body">
+                <div className="dashboard-mini-grid">
+                  <div className="dashboard-mini-card">
+                    <h3>Primera línea</h3>
+                    <p>Pilares y hooker</p>
+                  </div>
+                  <div className="dashboard-mini-card">
+                    <h3>Segunda</h3>
+                    <p>Fuerza y obtención</p>
+                  </div>
+                  <div className="dashboard-mini-card">
+                    <h3>Backs</h3>
+                    <p>Creatividad y ataque</p>
+                  </div>
+                </div>
               </div>
-
-              <div className="dashboard-mini-card">
-                <h3>Backs</h3>
-                <p>Creatividad y ataque</p>
-              </div>
-            </div>
-          </div>
+            </>
+          )}
         </section>
 
         <section className="dashboard-grid dashboard-grid-bottom">

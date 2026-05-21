@@ -1,8 +1,9 @@
-import React, { use, useEffect, useState } from "react";
-import "./PlayersPage.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./css/PlayersPage.css";
 import usePlayersStore from "../hooks/usePlayerStroe";
-import Titulares from "../component/Titulares";
-
+import useAuthStore from "../hooks/useAuthStore";
+import fetchSubmitTeam from "../servis/fetchSubmitTeam";
 const formation = [
   { number: 1, top: "8%", left: "24%" },
   { number: 2, top: "8%", left: "50%" },
@@ -28,14 +29,14 @@ const formation = [
 ];
 
 const positionByNumber = {
-  1: "PILAR",
-  2: "HOOKER",
-  3: "PILAR",
+  1: "PRIMERA_LINEA",
+  2: "PRIMERA_LINEA",
+  3: "PRIMERA_LINEA",
   4: "SEGUNDA_LINEA",
   5: "SEGUNDA_LINEA",
-  6: "ALA",
-  7: "ALA",
-  8: "OCTAVO",
+  6: "TERCERA_LINEA",
+  7: "TERCERA_LINEA",
+  8: "TERCERA_LINEA",
   9: "MEDIOSCRUM",
   10: "APERTURA",
   11: "WING",
@@ -45,13 +46,21 @@ const positionByNumber = {
   15: "FULLBACK",
 };
 
+const PLAYERS_PER_PAGE = 5;
+
 const PlayersPage = () => {
+  const navigate = useNavigate();
   const [selectedNumber, setSelectedNumber] = useState(0);
   const [selectedTeam, setSelectedTeam] = useState({});
+  const [currentPage, setCurrentPage] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+  const [pendingPlayer, setPendingPlayer] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
   const fetchPlayers = usePlayersStore((state) => state.fetchPlayers);
   const playersList = usePlayersStore((state) => state.players);
   const loading = usePlayersStore((state) => state.loading);
   const error = usePlayersStore((state) => state.error);
+  const setSubmittedTeam = useAuthStore((state) => state.setSubmittedTeam);
 
   useEffect(() => {
     fetchPlayers();
@@ -64,14 +73,71 @@ const PlayersPage = () => {
         (player) => player.position === positionByNumber[selectedNumber]
       );
 
+  const totalPages = Math.ceil(selectedPlayers.length / PLAYERS_PER_PAGE);
+  const pagedPlayers = selectedPlayers.slice(
+    currentPage * PLAYERS_PER_PAGE,
+    (currentPage + 1) * PLAYERS_PER_PAGE
+  );
+
+  const handleSelectNumber = (number) => {
+    setSelectedNumber(number);
+    setCurrentPage(0);
+  };
+
   const handleSelectPlayerForTeam = (player) => {
-    console.log("Jugador seleccionado para el equipo:", player);
     setSelectedTeam((prev) => ({
       ...prev,
       [selectedNumber]: player,
     }));
-console.log("Jugador seleccionado para el equipo:", selectedTeam);
+  };
 
+  const isIassi = (p) => p?.firstName === 'Isidro' && p?.lastName === 'Iassi';
+
+  const cancelPending = () => {
+    setPendingPlayer(null);
+    setShowWarning(false);
+  };
+
+  const confirmPlayer = () => {
+    if (isIassi(pendingPlayer) && !showWarning) {
+      setShowWarning(true);
+      return;
+    }
+    handleSelectPlayerForTeam(pendingPlayer);
+    cancelPending();
+  };
+
+  const allPositionsFilled = formation.every((pos) => selectedTeam[pos.number]);
+  const noRepeatedPlayers =
+    new Set(Object.values(selectedTeam).map((p) => p.id)).size ===
+    Object.keys(selectedTeam).length;
+  const canSubmit = allPositionsFilled && noRepeatedPlayers;
+
+  const handleSubmitTeam = async (event) => {
+    event.preventDefault();
+    try {
+      await fetchSubmitTeam(selectedTeam);
+      setSubmittedTeam(selectedTeam);
+      setSubmitted(true);
+      setTimeout(() => navigate("/dashboard", { replace: true }), 3000);
+    } catch {
+      // fetchWithAuth ya maneja errores
+    }
+  };
+
+  if (submitted) {
+    return (
+      <section className="players-page players-page--center">
+        <div className="submit-success-card">
+          <span className="submit-success-icon">🏉</span>
+          <h2>¡Gracias por participar del Gran DT LPRC!</h2>
+          <p>Tu equipo fue enviado correctamente. Redirigiendo al dashboard…</p>
+          <div className="submit-success-bar">
+            <div className="submit-success-bar-fill" />
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -101,22 +167,47 @@ console.log("Jugador seleccionado para el equipo:", selectedTeam);
                 <div className="try-area bottom-area" />
               </div>
 
-              {formation.map((player) => (
+              {formation.map((pos) => (
                 <button
-                  key={player.number}
+                  key={pos.number}
                   type="button"
-                  className={`player-marker ${selectedNumber === player.number ? "active" : ""
-                    }`}
-                  style={{ top: player.top, left: player.left }}
-                  onClick={() => setSelectedNumber(player.number)}
+                  className={`player-marker ${selectedNumber === pos.number ? "active" : ""}`}
+                  style={{ top: pos.top, left: pos.left }}
+                  onClick={() => handleSelectNumber(pos.number)}
                 >
                   <div className="jersey">
-                    <div className="jersey-collar" />
-                    <span className="jersey-number">{player.number}</span>
+                    <img src="/camisetalprc_nobg.png" className="jersey-img" alt="" />
+                    <span className="jersey-number">{pos.number}</span>
                   </div>
+                  {selectedTeam[pos.number] && (
+                    <span className="player-name-on-field">
+                      {selectedTeam[pos.number].lastName}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
+          </div>
+
+          <div className="submit-team-wrapper">
+            <button
+              className={`submit-team-btn ${canSubmit ? "submit-team-btn--active" : ""}`}
+              disabled={!canSubmit}
+              onClick={handleSubmitTeam}
+            >
+              <span className="submit-team-icon">▶</span>
+              ENVIAR EQUIPO COMPLETO
+            </button>
+            {!allPositionsFilled && (
+              <p className="submit-team-hint">
+                {15 - Object.keys(selectedTeam).length} posición/es sin cubrir
+              </p>
+            )}
+            {allPositionsFilled && !noRepeatedPlayers && (
+              <p className="submit-team-hint submit-team-hint--warn">
+                Hay jugadores repetidos en el equipo
+              </p>
+            )}
           </div>
         </div>
 
@@ -131,23 +222,52 @@ console.log("Jugador seleccionado para el equipo:", selectedTeam);
             {!loading && !error && (
               <div className="sidebar-list">
                 {selectedPlayers.length > 0 ? (
-                  selectedPlayers.map((player, index) => (
-                    <div key={player.id} className="player-list-item">
-                      <span className="player-index">{index + 1}</span>
-                      <span className="player-name">
-                        {player.firstName} {player.lastName}
-                      </span>
-                      <button
-                        className="player-action"
-                        onClick={() => {
+                  <>
+                    {pagedPlayers.map((player, index) => (
+                      <div key={player.id} className="player-list-item">
+                        <span className="player-index">
+                          {currentPage * PLAYERS_PER_PAGE + index + 1}
+                        </span>
+                        <span className="player-name">
+                          {player.firstName} {player.lastName}
+                        </span>
+                        <button
+                          className="player-action"
+                          onClick={() => {
+                            if (player.firstName === 'Isidro' && player.lastName === 'Iassi') {
+                              setPendingPlayer(player);
+                            } else {
+                              handleSelectPlayerForTeam(player);
+                            }
+                          }}
+                        >
+                          Seleccionar
+                        </button>
+                      </div>
+                    ))}
 
-                          handleSelectPlayerForTeam(player);
-                        }}
-                      >
-                        Seleccionar
-                      </button>
-                    </div>
-                  ))
+                    {totalPages > 1 && (
+                      <div className="pagination">
+                        <button
+                          className="pagination-btn"
+                          disabled={currentPage === 0}
+                          onClick={() => setCurrentPage((p) => p - 1)}
+                        >
+                          ‹
+                        </button>
+                        <span className="pagination-info">
+                          {currentPage + 1} / {totalPages}
+                        </span>
+                        <button
+                          className="pagination-btn"
+                          disabled={currentPage === totalPages - 1}
+                          onClick={() => setCurrentPage((p) => p + 1)}
+                        >
+                          ›
+                        </button>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className="player-list-item">
                     <span className="player-name">
@@ -162,10 +282,45 @@ console.log("Jugador seleccionado para el equipo:", selectedTeam);
           </div>
         </aside>
       </div>
-      <Titulares selectedTeam={selectedTeam}
-       // onRemovePlayer={handleRemoveSelectedPlayer} 
-        />
+      {pendingPlayer && (
+        <div className="confirm-overlay" onClick={cancelPending}>
+          <div className="confirm-card" onClick={(e) => e.stopPropagation()}>
+            {showWarning ? (
+              <>
+                <p className="confirm-question">
+                  ⚠️ <strong>¡Mirá que es malísimo!</strong>
+                  <br />¿Seguís queriendo ponerlo?
+                </p>
+                <div className="confirm-actions">
+                  <button className="confirm-btn confirm-btn--yes" onClick={confirmPlayer}>
+                    Sí
+                  </button>
+                  <button className="confirm-btn confirm-btn--no" onClick={cancelPending}>
+                    No
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="confirm-question">
+                  ¿Está seleccionando a{' '}
+                  <strong>{pendingPlayer.firstName} {pendingPlayer.lastName}</strong>?
+                </p>
+                <div className="confirm-actions">
+                  <button className="confirm-btn confirm-btn--yes" onClick={confirmPlayer}>
+                    Sí
+                  </button>
+                  <button className="confirm-btn confirm-btn--no" onClick={cancelPending}>
+                    No
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </section>
+     
   );
 };
 export default PlayersPage;

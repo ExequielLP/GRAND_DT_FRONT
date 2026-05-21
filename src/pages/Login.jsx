@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../hooks/useAuthStore";
 import "./css/login.css";
@@ -14,7 +14,15 @@ const Login = () => {
   const login = useAuthStore((state) => state.login);
   const loading = useAuthStore((state) => state.loading);
   const error = useAuthStore((state) => state.error);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const rol = useAuthStore.getState().rol;
+      navigate(rol === "ADMIN" ? "/admin" : "/dashboard", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleChangelogin = (e) => {
     setformlogin({
@@ -27,7 +35,8 @@ const Login = () => {
     e.preventDefault();
     const success = await login(formlogin);
     if (success) {
-      navigate("/dashboard", { replace: true });
+      const rol = useAuthStore.getState().rol;
+      navigate(rol === "ADMIN" ? "/admin" : "/dashboard", { replace: true });
     }
   };
 

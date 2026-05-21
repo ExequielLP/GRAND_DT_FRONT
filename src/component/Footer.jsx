@@ -9,7 +9,7 @@ const Footer = () => {
 
           <div className="footer-brand">
             <p className="footer-kicker">GRAN DT RUGBY</p>
-            <h3>Temporada 2026</h3>
+            <h3>Gran DT <span>Rugby</span></h3>
             <p className="footer-text">
               Una experiencia pensada para vivir el rugby con estrategia,
               competencia y pasión en cada fecha.
@@ -22,7 +22,7 @@ const Footer = () => {
               <li><a href="/">Inicio</a></li>
               <li><a href="/login">Ingresar</a></li>
               <li><a href="/register">Registrarse</a></li>
-              <li><a href="/positions">Jugadores</a></li>
+              <li><a href="/players">Jugadores</a></li>
             </ul>
           </div>
 

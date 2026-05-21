@@ -7,6 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const userName = useAuthStore((state) => state.userName);
+  const rol = useAuthStore((state) => state.rol);
   const logout = useAuthStore((state) => state.logout);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -54,6 +55,10 @@ const Navbar = () => {
         </button>
       </div>
 
+      <div className="navbar-center">
+        <img src="/escudoPNG.png" alt="Escudo La Plata Rugby Club" className="navbar-shield" />
+      </div>
+
       <div className={`navbar-right ${menuOpen ? 'open' : ''}`}>
         <div className="navbar-links">
           <button type="button" onClick={() => goTo('/home')}>
@@ -65,11 +70,17 @@ const Navbar = () => {
               Dashboard
             </button>
           ) : null}
+
+          {isAuthenticated && rol === 'ADMIN' ? (
+            <button type="button" onClick={() => goTo('/admin')}>
+              Panel de control
+            </button>
+          ) : null}
         </div>
 
         <div className="navbar-session">
           {isAuthenticated ? (
-            <span className="navbar-user-pill">Hola {userName || 'Jugador'}</span>
+            <span className="navbar-user-pill">Hola {userName}</span>
           ) : (
             <button
               className="navbar-button navbar-secondary"

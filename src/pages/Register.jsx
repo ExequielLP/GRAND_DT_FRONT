@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./css/register.css"
 import useAuthStore from '../hooks/useAuthStore';
 import { useState } from 'react';
@@ -15,6 +15,11 @@ const initialRegisterForm = {
 const Register = () => {
     const navigate = useNavigate();
     const register = useAuthStore((state) => state.register);
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+    useEffect(() => {
+        if (isAuthenticated) navigate("/dashboard", { replace: true });
+    }, [isAuthenticated, navigate]);
     const [formRegister, setFormRegister] = useState(initialRegisterForm);
 
     const handleChangeRegister = (e) => {

@@ -19,7 +19,7 @@ export  const fetchLogin = async (email, password) => {
     }
 
     const data = await response.json();
-    return data // Suponiendo que el backend devuelve un token
+    return data
   } catch (error) {
     console.error("Error al iniciar sesión:", error);
     throw error;

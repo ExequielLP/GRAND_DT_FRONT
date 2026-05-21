@@ -2,14 +2,17 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 16px 28px;
-  background: linear-gradient(135deg, #03274d, #004a99);
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #021e3a 0%, #03274d 50%, #003f80 100%);
   color: #fff;
   gap: 14px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 4px 0 0 rgba(250, 204, 21, 0.55),
+    0 8px 32px rgba(0, 0, 0, 0.32);
   position: relative;
   z-index: 50;
   box-sizing: border-box;
+  border-bottom: 3px solid #facc15;
 }
 
 .navbar-top-row {
@@ -18,6 +21,20 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+.navbar-center {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-shield {
+  height: 80px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s ease;
 }
 
 .navbar-left {
@@ -30,18 +47,22 @@
 }
 
 .navbar-logo {
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
   line-height: 1;
+  color: #facc15;
+  text-shadow: 0 0 18px rgba(250, 204, 21, 0.35);
 }
 
 .navbar-tag {
-  font-size: 0.95rem;
-  color: #ffd54f;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   line-height: 1.2;
+  border-left: 2px solid rgba(250, 204, 21, 0.4);
+  padding-left: 10px;
 }
 
 .navbar-menu-toggle {
@@ -58,6 +79,7 @@
   justify-content: center;
   flex-direction: column;
   gap: 5px;
+  justify-self: end;
 }
 
 .navbar-menu-toggle span {
@@ -107,11 +129,34 @@
 
 .navbar-links button {
   background: transparent;
-  color: #f7f2ef;
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
+  font-weight: 600;
+  position: relative;
 }
 
-.navbar-links button:hover,
+.navbar-links button::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #facc15;
+  border-radius: 999px;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.navbar-links button:hover::after {
+  transform: scaleX(1);
+}
+
+.navbar-links button:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
 .navbar-button:hover {
   background: rgba(255, 255, 255, 0.14);
 }
@@ -133,18 +178,37 @@
 }
 
 .navbar-button {
-  background: linear-gradient(135deg, #ffd54f, #ffcc00);
+  background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
   color: #03274d;
-  font-weight: 700;
-  box-shadow: 0 10px 18px rgba(255, 204, 0, 0.18);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  box-shadow:
+    0 4px 14px rgba(250, 204, 21, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
   cursor: pointer;
+  border: 1px solid rgba(250, 204, 21, 0.6);
+  transition: all 0.2s ease;
+}
+
+.navbar-button:hover {
+  background: linear-gradient(135deg, #fde047 0%, #facc15 100%);
+  box-shadow:
+    0 6px 20px rgba(250, 204, 21, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
 }
 
 .navbar-button.navbar-secondary {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);
   color: #ffffff;
   box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-button.navbar-secondary:hover {
+  background: rgba(255, 255, 255, 0.13);
+  transform: translateY(-1px);
+  box-shadow: none;
 }
 
 @media (max-width: 860px) {
@@ -186,6 +250,10 @@
     justify-content: center;
   }
 
+  .navbar-shield {
+    height: 62px;
+  }
+
   .navbar-left {
     gap: 8px;
   }
@@ -201,18 +269,55 @@
 }
 
 @media (min-width: 861px) {
+  .app-navbar {
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 32px;
+    gap: 0;
+  }
+
+  .navbar-top-row {
+    flex: 1;
+    grid-template-columns: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .navbar-menu-toggle {
+    display: none;
+  }
+
+  .navbar-center {
+    display: flex;
+    flex: 0 0 auto;
+    padding: 0 20px;
+  }
+
+  .navbar-shield {
+    height: 70px;
+  }
+
   .navbar-right {
+    flex: 1;
     display: flex !important;
+    width: auto;
+    justify-content: flex-end;
+    padding-top: 0;
+  }
+
+  .navbar-links,
+  .navbar-session {
+    width: auto;
+    flex-direction: row;
+    align-items: center;
   }
 }
 
 @media (max-width: 480px) {
   .app-navbar {
     padding: 12px 14px;
-  }
-
-  .navbar-top-row {
-    align-items: flex-start;
   }
 
   .navbar-left {

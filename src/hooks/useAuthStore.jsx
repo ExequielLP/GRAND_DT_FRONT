@@ -16,6 +16,7 @@ const useAuthStore = create(
       rol: null,
       jwt: null,
       email: null,
+      submittedTeam: null,
 
       login: async ({ email, password }) => {
         set({ loading: true, error: null });
@@ -25,8 +26,8 @@ const useAuthStore = create(
 
           set({
             id: data.id,
-            userName: data.userName,
-            rol: data.rol,
+            userName: data.firstName,
+            rol: data.rol?.replace(/[\[\]]/g, '').trim(),
             jwt: data.jwt,
             email: data.email,
             isAuthenticated: true,
@@ -57,6 +58,8 @@ const useAuthStore = create(
         return response.ok;
       }
       ,
+      setSubmittedTeam: (team) => set({ submittedTeam: team }),
+
       logout: () => {
         set({
           id: null,
@@ -66,6 +69,7 @@ const useAuthStore = create(
           jwt: null,
           email: null,
           error: null,
+          submittedTeam: null,
         });
       },
     }),
@@ -78,6 +82,7 @@ const useAuthStore = create(
         rol: state.rol,
         jwt: state.jwt,
         email: state.email,
+        submittedTeam: state.submittedTeam,
       }),
     }
   )
