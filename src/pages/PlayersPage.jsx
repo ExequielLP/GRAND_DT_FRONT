@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/PlayersPage.css";
 import usePlayersStore from "../hooks/usePlayerStroe";
@@ -56,6 +56,9 @@ const PlayersPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [pendingPlayer, setPendingPlayer] = useState(null);
   const [showWarning, setShowWarning] = useState(false);
+  const [search, setSearch] = useState("");
+  const sidebarRef = useRef(null);
+  const fieldRef   = useRef(null);
   const fetchPlayers = usePlayersStore((state) => state.fetchPlayers);
   const playersList = usePlayersStore((state) => state.players);
   const loading = usePlayersStore((state) => state.loading);
@@ -66,12 +69,15 @@ const PlayersPage = () => {
     fetchPlayers();
   }, [fetchPlayers]);
 
-  const selectedPlayers =
-    selectedNumber === 0
+  const selectedPlayers = search.trim()
+    ? playersList.filter((p) =>
+        `${p.firstName} ${p.lastName}`.toLowerCase().includes(search.toLowerCase())
+      )
+    : selectedNumber === 0
       ? []
       : playersList.filter(
-        (player) => player.position === positionByNumber[selectedNumber]
-      );
+          (player) => player.position === positionByNumber[selectedNumber]
+        );
 
   const totalPages = Math.ceil(selectedPlayers.length / PLAYERS_PER_PAGE);
   const pagedPlayers = selectedPlayers.slice(
@@ -82,6 +88,10 @@ const PlayersPage = () => {
   const handleSelectNumber = (number) => {
     setSelectedNumber(number);
     setCurrentPage(0);
+    setSearch("");
+    setTimeout(() => {
+      sidebarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   const handleSelectPlayerForTeam = (player) => {
@@ -89,6 +99,9 @@ const PlayersPage = () => {
       ...prev,
       [selectedNumber]: player,
     }));
+    setTimeout(() => {
+      fieldRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   const isIassi = (p) => p?.firstName === 'Isidro' && p?.lastName === 'Iassi';
@@ -143,7 +156,7 @@ const PlayersPage = () => {
   return (
     <section className="players-page">
       <div className="players-layout">
-        <div className="field-card">
+        <div className="field-card" ref={fieldRef}>
           <div className="field-header">
             <div>
               <span className="field-badge">XV Inicial</span>
@@ -211,10 +224,18 @@ const PlayersPage = () => {
           </div>
         </div>
 
-        <aside className="players-sidebar">
+        <aside className="players-sidebar" ref={sidebarRef}>
           <div className="sidebar-card">
             <span className="sidebar-label">Posición seleccionada</span>
             <h3>PUESTO #{selectedNumber}</h3>
+
+            <input
+              className="sidebar-search"
+              type="text"
+              placeholder="Buscar jugador por nombre…"
+              value={search}
+              onChange={(e) => { setSearch(e.target.value); setCurrentPage(0); }}
+            />
 
             {loading && <p>Cargando jugadores...</p>}
             {error && <p>{error}</p>}

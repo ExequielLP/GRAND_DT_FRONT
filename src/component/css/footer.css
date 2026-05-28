@@ -53,8 +53,11 @@
   line-height: 1.1;
 }
 
-.footer-brand h3 span {
-  color: #facc15;
+.footer-club-name {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+  color: #facc15 !important;
 }
 
 .footer-text {

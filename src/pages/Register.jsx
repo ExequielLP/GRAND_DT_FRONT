@@ -9,6 +9,7 @@ const initialRegisterForm = {
     lastName: "",
     email: "",
     password: "",
+    nameTeam: ""
 };
 
 
@@ -27,6 +28,7 @@ const Register = () => {
         ...formRegister,
         [e.target.name]: e.target.value,
     });
+    console.log("Form Register Updated:", formRegister);
   
 };
   const handleSubmit = async (e) => {
@@ -65,6 +67,11 @@ const Register = () => {
                         <div className="form-group">
                             <label htmlFor="password">Contraseña</label>
                             <input type="password" id="password" placeholder="Ingresá tu contraseña" onChange={handleChangeRegister} value={formRegister.password} name="password" />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="nameTeam">Nombre del equipo</label>
+                            <input type="text" id="nameTeam" placeholder="Ingresá el nombre de tu equipo" onChange={handleChangeRegister} value={formRegister.nameTeam} name="nameTeam" />
                         </div>
 
                         <button type="submit" className="rugby-btn" onClick={handleSubmit}>

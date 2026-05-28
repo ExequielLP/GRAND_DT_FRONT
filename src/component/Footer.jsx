@@ -9,7 +9,7 @@ const Footer = () => {
 
           <div className="footer-brand">
             <p className="footer-kicker">GRAN DT RUGBY</p>
-            <h3>Gran DT <span>Rugby</span></h3>
+            <h3 className="footer-club-name">La Plata Rugby Club</h3>
             <p className="footer-text">
               Una experiencia pensada para vivir el rugby con estrategia,
               competencia y pasión en cada fecha.

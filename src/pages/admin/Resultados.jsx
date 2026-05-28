@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import usePlayersStore from '../hooks/usePlayerStroe'
-import fetchPostResultados from '../servis/fetchPostResultados'
+import usePlayersStore from '../../hooks/usePlayerStroe'
+import fetchPostResultados from '../../servis/fetchPostResultados'
 import './css/Resultados.css'
 
 const DIVISIONS = ['Primera', 'Intermedia', 'Pre A', 'Pre B', 'Pre C', 'M-22']

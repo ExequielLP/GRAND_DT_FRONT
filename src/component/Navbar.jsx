@@ -39,7 +39,7 @@ const Navbar = () => {
           }}
         >
           <span className="navbar-logo">Gran DT</span>
-          <span className="navbar-tag">La Plata Rugby</span>
+          <span className="navbar-tag">La Plata Rugby Club</span>
         </div>
 
         <button

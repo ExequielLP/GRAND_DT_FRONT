@@ -56,13 +56,14 @@
 }
 
 .navbar-tag {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.65);
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.2;
   border-left: 2px solid rgba(250, 204, 21, 0.4);
   padding-left: 10px;
+  letter-spacing: 0.02em;
 }
 
 .navbar-menu-toggle {

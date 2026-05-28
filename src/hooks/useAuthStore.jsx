@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { fetchLogin } from '../servis/fetchLogin';
+import { fetchWithAuth } from '../servis/fetchWithAuth';
 const{
-  VITE_ENDPOINT_urlPostRegister: urlPostRegister
+  VITE_ENDPOINT_urlPostRegister: urlPostRegister,VITE_ENDPOINT_urlValidate: urlValidate
 } = import.meta.env;
 
 const useAuthStore = create(
@@ -58,6 +59,19 @@ const useAuthStore = create(
         return response.ok;
       }
       ,
+      checkAuth: async () => {
+        const { jwt } = useAuthStore.getState();
+        if (!jwt) return;
+        try {
+          const data = await fetchWithAuth(urlValidate, {
+            params: { jwt: jwt }
+          });
+          
+        } catch {
+          // fetchWithAuth ya hace logout() automáticamente en 401
+        }
+      },
+
       setSubmittedTeam: (team) => set({ submittedTeam: team }),
 
       logout: () => {

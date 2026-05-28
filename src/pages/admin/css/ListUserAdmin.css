@@ -1,0 +1,378 @@
+/* ─── página ─── */
+.list-users-page {
+  min-height: 100vh;
+  padding: 40px 32px;
+  background:
+    radial-gradient(circle at top left, rgba(250, 204, 21, 0.1), transparent 28%),
+    linear-gradient(135deg, #07111f 0%, #0a1730 45%, #0d2244 100%);
+  color: #f8fafc;
+  box-sizing: border-box;
+}
+
+.list-users-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ─── header ─── */
+.list-users-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list-users-header .admin-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(250, 204, 21, 0.12);
+  border: 1px solid rgba(250, 204, 21, 0.3);
+  color: #facc15;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.list-users-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.list-users-header p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* ─── barra de controles ─── */
+.table-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 220px;
+  background: rgba(8, 15, 30, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0 14px;
+  gap: 8px;
+  transition: border-color 0.2s;
+}
+
+.search-wrapper:focus-within {
+  border-color: rgba(250, 204, 21, 0.4);
+}
+
+.search-icon {
+  font-size: 0.9rem;
+  opacity: 0.5;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f1f5f9;
+  font-size: 0.9rem;
+  padding: 11px 0;
+}
+
+.search-input::placeholder {
+  color: #475569;
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.search-clear:hover {
+  color: #f87171;
+}
+
+.sort-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.sort-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sort-btn {
+  background: rgba(8, 15, 30, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.sort-btn:hover {
+  border-color: rgba(250, 204, 21, 0.3);
+  color: #facc15;
+}
+
+.sort-btn.active {
+  background: rgba(250, 204, 21, 0.12);
+  border-color: rgba(250, 204, 21, 0.4);
+  color: #facc15;
+}
+
+/* ─── card contenedor de la tabla ─── */
+.table-card {
+  background: rgba(8, 15, 30, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* ─── tabla ─── */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.users-table thead {
+  background: rgba(250, 204, 21, 0.07);
+  border-bottom: 1px solid rgba(250, 204, 21, 0.2);
+}
+
+.users-table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #facc15;
+  white-space: nowrap;
+}
+
+.users-table td {
+  padding: 14px 20px;
+  color: #cbd5e1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.users-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ─── nombre completo ─── */
+.user-name {
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.user-lastname {
+  color: #94a3b8;
+  font-size: 0.88rem;
+}
+
+/* ─── equipo ─── */
+.team-name {
+  color: #e2e8f0;
+  font-style: italic;
+}
+
+/* ─── email ─── */
+.user-email {
+  color: #7dd3fc;
+  font-size: 0.88rem;
+}
+
+/* ─── badges de roles ─── */
+.roles-cell {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.role-badge.admin {
+  background: rgba(250, 204, 21, 0.15);
+  border: 1px solid rgba(250, 204, 21, 0.4);
+  color: #facc15;
+}
+
+.role-badge.user {
+  background: rgba(125, 211, 252, 0.1);
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  color: #7dd3fc;
+}
+
+.role-badge.default {
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #94a3b8;
+}
+
+/* ─── estados: loading / error / vacío ─── */
+.table-state {
+  padding: 60px 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.table-state .state-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.table-state.error {
+  color: #f87171;
+}
+
+/* ─── puntos acumulados ─── */
+.points-value {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #facc15;
+}
+
+/* ─── contador ─── */
+.users-count {
+  font-size: 0.82rem;
+  color: #64748b;
+  padding: 10px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* ─── responsive ─── */
+@media (max-width: 768px) {
+  .list-users-page {
+    padding: 20px 14px;
+  }
+
+  .list-users-container {
+    gap: 20px;
+  }
+
+  .list-users-header h1 {
+    font-size: 1.5rem;
+  }
+
+  /* controles apilados */
+  .table-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .search-wrapper {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .sort-buttons {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  /* tabla → tarjetas apiladas */
+  .users-table thead {
+    display: none;
+  }
+
+  .users-table,
+  .users-table tbody,
+  .users-table tr,
+  .users-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .users-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 16px;
+  }
+
+  .users-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .users-table tbody tr:hover td {
+    background: transparent;
+  }
+
+  .users-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: none;
+    font-size: 0.88rem;
+  }
+
+  /* etiqueta generada desde data-label */
+  .users-table td::before {
+    content: attr(data-label);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #475569;
+    flex-shrink: 0;
+    margin-right: 12px;
+  }
+
+  .points-value {
+    font-size: 0.95rem;
+  }
+
+  .users-count {
+    font-size: 0.78rem;
+    padding: 10px 16px;
+  }
+}

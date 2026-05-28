@@ -21,7 +21,6 @@ export const usePlayersStore = create((set, get) => ({
                 error: null,
                 fetched: true,
             });
-            console.log("Players fetched:", data);
         } catch (error) {
             set({
                 loading: false,

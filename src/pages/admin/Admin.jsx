@@ -1,6 +1,6 @@
 import React from 'react'
 import "./css/admin.css"
-import useAuthStore from '../hooks/useAuthStore'
+import useAuthStore from '../../hooks/useAuthStore'
 import { useNavigate } from 'react-router-dom'
 const Admin = () => {
   const userName = useAuthStore((state) => state.userName);
@@ -15,7 +15,7 @@ const Admin = () => {
         </div>
 
         <div className="admin-grid">
-          <div className="admin-card">
+          <div className="admin-card" onClick={() => navigate('/listUsers')}>
             <span className="admin-card-icon">👥</span>
             <h3>Usuarios</h3>
             <p>Gestioná los usuarios registrados y sus roles.</p>
