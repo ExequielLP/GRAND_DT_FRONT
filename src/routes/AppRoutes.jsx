@@ -12,6 +12,7 @@ const Home = lazy(() => import("../pages/Home"))
 const Admin = lazy(() => import("../pages/admin/Admin"))
 const Resultados = lazy(() => import("../pages/admin/Resultados"))
 const ListUserAdmin = lazy(() => import("../pages/admin/ListUserAdmin"))
+const AgregarPlayer = lazy(() => import("../pages/admin/AgregarPlayer"))
 const AppRoutes = () => {
     return (
         <>
@@ -30,6 +31,7 @@ const AppRoutes = () => {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/resultados" element={<Resultados />} />
                 <Route path="/listUsers" element={<ListUserAdmin />} />
+                <Route path="/agregarPlayer" element={<AgregarPlayer />} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

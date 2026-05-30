@@ -29,10 +29,10 @@ const Footer = () => {
           <div className="footer-links-group">
             <h4>Torneo</h4>
             <ul>
-              <li><a href="/">Tabla general</a></li>
-              <li><a href="/">Próximos partidos</a></li>
-              <li><a href="/">Premios</a></li>
-              <li><a href="/">Reglamento</a></li>
+              <li><a href="https://www.google.com/search?q=tabla+de+torneo+urba&oq=tabla+de+torneo+urba&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIICAEQABgWGB4yBwgCEAAY7wUyCggDEAAYogQYiQUyBwgEEAAY7wUyBwgFEAAY7wXSAQg1MDczajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#cobssid=s&sie=lg;/g/11mzn_tq2p;8;/m/0cc5613;st;fp;1;;;;0" target="_blank" rel="noreferrer">Tabla de torneo</a></li>
+              <li><a href="https://www.instagram.com/p/DXKgM_xgaWB/?img_index=1" target="_blank" rel="noreferrer">Próximos partidos</a></li>
+              <li><a href="/login">Ingresar</a></li>
+              <li><a href="/register">Registrarse</a></li>
             </ul>
           </div>
 

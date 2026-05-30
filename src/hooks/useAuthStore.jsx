@@ -66,7 +66,11 @@ const useAuthStore = create(
           const data = await fetchWithAuth(urlValidate, {
             params: { jwt: jwt }
           });
-          
+          console.log("Auth validation response:", data);
+          if (!data) {
+            useAuthStore.getState().logout();
+          }
+
         } catch {
           // fetchWithAuth ya hace logout() automáticamente en 401
         }

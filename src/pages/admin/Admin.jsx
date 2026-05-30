@@ -20,7 +20,7 @@ const Admin = () => {
             <h3>Usuarios</h3>
             <p>Gestioná los usuarios registrados y sus roles.</p>
           </div>
-          <div className="admin-card">
+          <div className="admin-card" onClick={() => navigate('/agregarPlayer')}>
             <span className="admin-card-icon">🏉</span>
             <h3>Jugadores</h3>
             <p>Agregá, editá o eliminá jugadores del torneo.</p>
